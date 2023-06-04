@@ -1,0 +1,26 @@
+.additems:hover,.remove .text-danger:hover{
+    cursor: pointer;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@media (max-width: 767px) {
+	.service_table th,.service_table td{
+        width: 100% !important;
+    }
+    .service_table {
+        overflow-x: scroll;
+        display: block;
+    }
+}
+
