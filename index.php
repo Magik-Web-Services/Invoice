@@ -41,8 +41,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 hd_box">
-                                            <textarea name="to" class="form-control roundcorner" cols="30" rows="10"></textarea>
-                                            <!-- <div class="form-group">
+                                            <!-- <textarea name="to" class="form-control roundcorner" cols="30" rows="10"></textarea> -->
+                                            <div class="form-group">
                                                 <label class="fl">Your Name/Business Name <font color="#FF0000">*</font></label>
                                                 <input type="text" name="to_name" class="form-control roundcorner" style="width: 100%;" required>
                                             </div>
@@ -54,7 +54,7 @@
                                                 <label class="fl">Address Line 2</label>
                                                 <input type="text" name="to_address2" class="form-control roundcorner" style="width: 100%;">
                                             </div>
-                                            <div class="form-group part2">
+                                            <!-- <div class="form-group part2">
                                                 <label class="fl">Registration No</label>
                                                 <input type="text" name="to_registration_no" class="form-control roundcorner" style="width: 100%;">
                                             </div>
@@ -75,8 +75,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 hd_box">
-                                            <textarea name="from" class="form-control roundcorner" cols="30" rows="10"></textarea>
-                                            <!-- <div class="form-group">
+                                            <!-- <textarea name="from" class="form-control roundcorner" cols="30" rows="10"></textarea> -->
+                                            <div class="form-group">
                                                 <label class="fl">Your Name/Business Name <font color="#FF0000">*</font></label>
                                                 <input type="text" name="from_name" class="form-control roundcorner" style="width: 100%;" required>
                                             </div>
@@ -88,7 +88,7 @@
                                                 <label class="fl">Address Line 2</label>
                                                 <input type="text" name="from_address2" class="form-control roundcorner" style="width: 100%;">
                                             </div>
-                                            <div class="form-group part2">
+                                            <!-- <div class="form-group part2">
                                                 <label class="fl">Registration No</label>
                                                 <input type="text" name="from_registration_no" class="form-control roundcorner" style="width: 100%;">
                                             </div>
@@ -106,7 +106,7 @@
                     <div class="row">
                         <table cellpadding="5" border="0" cellspacing="0" class="w-100 table table-striped table-bordered nowrap">
                             <thead>
-                                <tr>
+                            <tr>
                                     <th colspan="6">
                                         <h5 class="card-title m-0" style="display: inline;">Quotation Details</h5>
                                         <input type="text" name="qtDetails" style="display: inline; width: 200px;" class="form-control roundcorner">
@@ -133,6 +133,7 @@
                                 <h5 class="card-title m-0"></h5>
                             </td> -->
                                 </tr>
+
                             </thead>
                         </table>
                         <table cellpadding="5" border="0" cellspacing="0" class="w-100 service_table table table-striped table-bordered nowrap" id="example">
@@ -322,12 +323,12 @@
                             </tr>
                             <tr>
                                 <td class="card-title m-0">
-                                    <textarea class="card-title m-0 form-control roundcorner" style="width: 100%;" name="productTS" cols="30" rows="10"></textarea>
-                                    <!-- <h6 class="card-title m-0">The Service Start Date for the above service provided by ASCENT FINTECH shall be the date of receipt of the above Total Fees. <br>
-                                The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the signing of the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line Item 5 and 6 is Optional. <br>
-                                Technical Support shall commence on the same date of service subscription via supported channel including e-mail and telecommunication on Business Day (Monday to Friday), from 10am-6pm <br>
-                                (Singapore Time Zone)
-                            </h6> -->
+                                    <!-- <textarea class="card-title m-0 form-control roundcorner" style="width: 100%;" name="productTS" cols="30" rows="10"></textarea> -->
+                                    <h6 class="card-title m-0 form-control roundcorner"> The Service Start Date for the above service provided by ASCENT FINTECH shall be the date of receipt of the above Total Fees. <br>
+                                        The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the signing of the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line Item 5 and 6 is Optional. <br>
+                                        Technical Support shall commence on the same date of service subscription via supported channel including e-mail and telecommunication on Business Day (Monday to Friday), from 10am-6pm <br>
+                                        (Singapore Time Zone)
+                                    </h6>
                                 </td>
                             </tr>
                         </table>
@@ -341,26 +342,31 @@
                                     <h5 class="card-title m-0">Terms and Conditions as below:</h5>
                                 </th>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>
                                     <textarea class="card-title m-0 form-control roundcorner" style="width: 100%;" name="termCond" cols="30" rows="10"></textarea>
                                 </td>
+                            </tr> -->
+                            <tr>
+                                <td>
+                                    <h6 class="card-title m-0 form-control roundcorner">1. By signing this Legal Fee Quotation ("<span style="text-decoration: underline;">Schedule</span>") or issuing a purchase order referencing this Schedule</h6>
+                                </td>
                             </tr>
-                            <!-- <tr>
-                        <td>
-                            <h6 class="card-title m-0">2. Fees are exclusive of any applicable sales, goods and services, GST or withholding tax (if any), and will be invoiced starting on the above Service Start Date. Payment can be remitted to ASCENT FINTECH in US$ to a bank account specified by ASCENT FINTECH</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 class="card-title m-0">3. Once accepted, this Schedule shall be a binding commitment to purchase the above service beginning on the above subscription start date. Acceptance of this Schedule is expressly limited to the terms of ASCENT FINTECH written offer. Once accepted, this Schedule and the terms and conditions referenced herein will be the complete and exclusive statement of the Agreement. Any modifications proposed by Customer are expressly rejected by ASCENT FINTECH and shall not become part of the Agreement in the absence of ASCENT FINTECH written acceptance.</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 class="card-title m-0">4. All fees are stated in USD and exclude prevailing rate of goods & services taxes. The Licensee acknowledges that upon signing this order form, the licensee has read, understood, and accepted the terms and conditions set out and they are hereby incorporated by reference here.</h6>
-                        </td>
-                    </tr> -->
+                            <tr>
+                                <td>
+                                    <h6 class="card-title m-0 form-control roundcorner">2. Fees are exclusive of any applicable sales, goods and services, GST or withholding tax (if any), and will be invoiced starting on the above Service Start Date. Payment can be remitted to ASCENT FINTECH in US$ to a bank account specified by ASCENT FINTECH</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6 class="card-title m-0 form-control roundcorner">3. Once accepted, this Schedule shall be a binding commitment to purchase the above service beginning on the above subscription start date. Acceptance of this Schedule is expressly limited to the terms of ASCENT FINTECH written offer. Once accepted, this Schedule and the terms and conditions referenced herein will be the complete and exclusive statement of the Agreement. Any modifications proposed by Customer are expressly rejected by ASCENT FINTECH and shall not become part of the Agreement in the absence of ASCENT FINTECH written acceptance.</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h6 class="card-title m-0 form-control roundcorner">4. All fees are stated in USD and exclude prevailing rate of goods & services taxes. The Licensee acknowledges that upon signing this order form, the licensee has read, understood, and accepted the terms and conditions set out and they are hereby incorporated by reference here.</h6>
+                                </td>
+                            </tr>
                         </table>
                     </div>
 

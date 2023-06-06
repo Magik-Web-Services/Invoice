@@ -42,20 +42,20 @@ if (isset($_POST) && !empty($_POST)) {
     // $logo_url = imageinterlace($logo_url, false);
 
     // to
-    // $to_name = (!empty($_POST['to_name'])) ? $_POST['to_name'] : '';
-    // $to_address1 = (!empty($_POST['to_address1'])) ? $_POST['to_address1'] : '';
-    // $to_address2 = (!empty($_POST['to_address2'])) ? $_POST['to_address2'] : '';
+    $to_name = (!empty($_POST['to_name'])) ? $_POST['to_name'] : '';
+    $to_address1 = (!empty($_POST['to_address1'])) ? $_POST['to_address1'] : '';
+    $to_address2 = (!empty($_POST['to_address2'])) ? $_POST['to_address2'] : '';
     // $to_registration_no = (!empty($_POST['to_registration_no'])) ? $_POST['to_registration_no'] : '';
     // $to_head_vat = (!empty($_POST['to_head_vat'])) ? $_POST['to_head_vat'] : '';
-    $to = (!empty($_POST['to'])) ? $_POST['to'] : '';
+    // $to = (!empty($_POST['to'])) ? $_POST['to'] : '';
 
     // from
-    // $from_name = (!empty($_POST['from_name'])) ? $_POST['from_name'] : '';
-    // $from_address1 = (!empty($_POST['from_address1'])) ? $_POST['from_address1'] : '';
-    // $from_address2 = (!empty($_POST['from_address2'])) ? $_POST['from_address2'] : '';
+    $from_name = (!empty($_POST['from_name'])) ? $_POST['from_name'] : '';
+    $from_address1 = (!empty($_POST['from_address1'])) ? $_POST['from_address1'] : '';
+    $from_address2 = (!empty($_POST['from_address2'])) ? $_POST['from_address2'] : '';
     // $from_registration_no = (!empty($_POST['from_registration_no'])) ? $_POST['from_registration_no'] : '';
     // $from_head_vat = (!empty($_POST['from_head_vat'])) ? $_POST['from_head_vat'] : '';
-    $from = (!empty($_POST['from'])) ? $_POST['from'] : '';
+    // $from = (!empty($_POST['from'])) ? $_POST['from'] : '';
 
 
     // table
@@ -63,6 +63,7 @@ if (isset($_POST) && !empty($_POST)) {
     $qtDate = (!empty($_POST['qtDate'])) ? $_POST['qtDate'] : '';
     $qtNumber = (!empty($_POST['qtNumber'])) ? $_POST['qtNumber'] : '';
     $qtExDate = (!empty($_POST['qtExDate'])) ? $_POST['qtExDate'] : '';
+
 
     if (isset($_POST['item_name']) && !empty($_POST['item_name']) && is_array($_POST['item_name'])) {
         $items = '';
@@ -77,8 +78,8 @@ if (isset($_POST) && !empty($_POST)) {
             $item_total = (!empty($_POST['item_total'][$key])) ? $_POST['item_total'][$key] : '';
 
             $items .= '<tr align="center">
-                <td>'. $item_name .'</td>
-                <td>'. $item_product .'</td>
+                <td>' . $item_name . '</td>
+                <td>' . $item_product . '</td>
                 <td> ' . $item_product_code . ' </td>
                 <td> ' . $item_quantity . ' </td>
                 <td> ' . $item_subscription_fee . ' </td>
@@ -243,10 +244,16 @@ if (isset($_POST) && !empty($_POST)) {
             <td width="100%">
                 <table width="100%" border="1">
                     <tr style="background-color: #f1e8e9 ;">
-                        <td width="40%">Bill To: ' . $to . ' </td>
-                        <td width="20%"></td>
-                        <td width="40%">
-                            From: ' . $from . '
+                        <td width="50%">Bill To: <br>
+                        ' . $to_name . '  <br>
+                        ' . $to_address1  . '  <br>
+                        ' . $to_address2 . '  <br>
+                        </td>
+                        <td width="50%">
+                        From: <br>
+                        ' . $from_name . '  <br>
+                        ' . $from_address1  . '  <br>
+                        ' . $from_address2 . '  <br>
                         </td>
                     </tr>
                 </table>
@@ -255,54 +262,54 @@ if (isset($_POST) && !empty($_POST)) {
         <tr>
             <td width="100%">
                 <table border="1" cellspacing="0" cellpadding="10">
-                    <tr style="background-color: #f1e8e9 ;">
-                        <td colspan="5">Quotation Details: ' . $qtDetails . '</td>
-                        <td>Fee Quote Date' . $qtDate . ' </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr style="background-color: #f1e8e9 ;">
-                        <td colspan="5">Quote Number ' . $qtNumber . '</td>
-                        <td>Fee Quote Expiration Date ' . $qtExDate . '</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                <tr style="background-color: #f1e8e9 ;">
+                <td colspan="6">Quotation Details: ' . $qtDetails . '</td>
+                <td>Fee Quote Date' . $qtDate . ' </td>
+                <td></td>
+            </tr>
+            <tr style="background-color: #f1e8e9 ;">
+                <td colspan="6">Quote Number ' . $qtNumber . '</td>
+                <td>Fee Quote Expiration Date ' . $qtExDate . '</td>
+                <td></td>
+            </tr>
                     <tr align="center" style="background-color: #f1e8e9 ;">
-                        <td width="10%">Item</td>
-                        <td width="20%">Product</td>
-                        <td width="10%">Product Code</td>
+                        <td>Item</td>
+                        <td>Product</td>
+                        <td>Product Code</td>
 
-                        <td width="10%">Quantity</td>
-                        <td width="10%">subscription Period</td>
-                        <td width="10%">product fee</td>
-                        <td width="20%">Price</td>
-                        <td width="10%">totle Product fee</td>
+                        <td>Quantity</td>
+                        <td>subscription Period</td>
+                        <td>product fee</td>
+                        <td>Price</td>
+                        <td>totle Product fee</td>
                     </tr>
                     <tbody>
-                    '. $items .'
+                    ' . $items . '
                     </tbody>
                     <tr style="background-color:  #f1e8e9 ;">
                         <td colspan="8">Product or Service Terms:</td>
                     </tr>
                     <tr>
-                        <td colspan="8">
-                            ' . $productTS . '
-                            <!--<h4>The Service Start Date for the above service provided by ASCENT</h4>
-                            <h4> FINTECH shall be the date of receipt of the above Total Fees.
-                                The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the</h4>
-                            <h4>signing of the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line
-                                Item 5 and 6 is
-                                Optional</h4>.-->
-                        </td>
+                        <td colspan="8" style="font-weight: 900;">The Service Start Date for the above service provided by ASCENT FINTECH shall be the date of receipt of the above Total Fees. <br><br>
+                            The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the signing of the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line Item 5 and 6 is Optional. <br><br>
+                            Technical Support shall commence on the same date of service subscription via supported channel including e-mail and telecommunication on Business Day (Monday to Friday), from 10am-6pm <br><br>
+                            (Singapore Time Zone)</td>
                     </tr>
                     <tr style="background-color:  #f1e8e9 ;">
                         <td colspan="8">Terms An Conditions:</td>
                     </tr>
                     <tr>
-                        <td colspan="8">
-                            ' . $termCond . '
-                        </td>
-                    </tr>
+                    <td colspan="8">1. By signing this Legal Fee Quotation ("<span style="text-decoration: underline;">Schedule</span>") or issuing a purchase order referencing this Schedule</td>
+                </tr>
+                <tr>
+                    <td colspan="8">2. Fees are exclusive of any applicable sales, goods and services, GST or withholding tax (if any), and will be invoiced starting on the above Service Start Date. Payment can be remitted to ASCENT FINTECH in US$ to a bank account specified by ASCENT FINTECH</td>
+                </tr>
+                <tr>
+                    <td colspan="8">3. Once accepted, this Schedule shall be a binding commitment to purchase the above service beginning on the above subscription start date. Acceptance of this Schedule is expressly limited to the terms of ASCENT FINTECH written offer. Once accepted, this Schedule and the terms and conditions referenced herein will be the complete and exclusive statement of the Agreement. Any modifications proposed by Customer are expressly rejected by ASCENT FINTECH and shall not become part of the Agreement in the absence of ASCENT FINTECH written acceptance.</td>
+                </tr>
+                <tr>
+                    <td colspan="8">4. All fees are stated in USD and exclude prevailing rate of goods & services taxes. The Licensee acknowledges that upon signing this order form, the licensee has read, understood, and accepted the terms and conditions set out and they are hereby incorporated by reference here.</td>
+                </tr>
                     <tfoot>
                     <table cellpadding="0" border="0" cellspacing="0">
                     <thead>
@@ -387,10 +394,10 @@ if (isset($_POST) && !empty($_POST)) {
     </tbody>
 </table>';
 
-// echo "<pre>";
-// print_r($_POST);
-// echo "</pre>";
-// die;
+    // echo "<pre>";
+    // print_r($_POST);
+    // echo "</pre>";
+    // die;
     $invoice_number = 'text';
     $order_number = "text";
     $pdf->SetTitle($invoice_number . '-' . date('Y-m-d H:i:s'));
