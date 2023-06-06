@@ -177,19 +177,19 @@
                                         <div class="input-group"><input type="text" id="item_product_code_1" class="form-control item_product_code" required="" name="item_product_code[]" step="0.01"></div>
                                     </td>
                                     <td class="prd_data">
-                                        <div class="input-group"><input type="text" id="item_quantity_1" class="form-control item_quantity" required="" name="item_quantity[]" step="0.01"></div>
+                                        <div class="input-group"><input type="number" id="item_quantity_1" class="form-control item_quantity" required="" name="item_quantity[]" step="0.01"></div>
                                     </td>
                                     <td class="prd_data">
-                                        <div class="input-group"><input type="text" id="item_subscription_fee_1" class="form-control item_subscription_fee" required="" name="item_subscription_fee[]" step="0.01"></div>
+                                        <div class="input-group"><input type="number" id="item_subscription_fee_1" class="form-control item_subscription_fee" required="" name="item_subscription_fee[]" step="0.01"></div>
                                     </td>
                                     <td class="prd_data">
-                                        <div class="input-group"><input type="text" id="item_product_fee_1" class="form-control item_product_fee" required="" name="item_product_fee[]" step="0.01"></div>
+                                        <div class="input-group"><input type="number" id="item_product_fee_1" class="form-control item_product_fee" required="" name="item_product_fee[]" step="0.01"></div>
                                     </td>
                                     <td class="prd_data">
-                                        <div class="input-group"><input type="text" id="item_price_1" class="form-control item_price" required="" name="item_price[]" step="0.01"></div>
+                                        <div class="input-group"><input type="number" id="item_price_1" class="form-control item_price" required="" name="item_price[]" step="0.01"></div>
                                     </td>
                                     <td class="prd_data">
-                                        <div class="input-group"><input type="text" id="item_total_1" class="form-control item_total rounded" required="" name="item_total[]" step="0.01">
+                                        <div class="input-group"><input type="number" id="item_total_1" class="form-control item_total rounded" required="" name="item_total[]" step="0.01">
                                             <div class="remove items_r p-2"><i class="fa fa-trash text-danger"></i></div>
                                         </div>
                                     </td>

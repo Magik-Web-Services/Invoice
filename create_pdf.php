@@ -4,43 +4,6 @@ if (isset($_POST) && !empty($_POST)) {
     // echo "<pre>";
     // print_r($_POST);
     // echo "</pre>";
-    // heading
-    $invoice_heading = (!empty($_POST['invoice_heading'])) ? $_POST['invoice_heading'] : '';
-    // $sub_title = (!empty($_POST['sub_title'])) ? $_POST['sub_title'] : '';
-    // Logo
-    $logo_url = (!empty($_POST['logo_url'])) ? $_POST['logo_url'] : '';
-    if (!empty($logo_url)) {
-        $files = glob('assets/upload/{,.}*', GLOB_BRACE);
-        foreach ($files as $file) { // iterate files
-            if (is_file($file)) {
-                unlink($file); // delete file
-            }
-        }
-        $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension   
-        $file_mine = finfo_file($finfo, $logo_url);
-        finfo_close($finfo);
-        if (isset($file_mine) && !empty($file_mine) && $file_mine == 'image/jpeg') {
-
-            $img = str_replace('data:image/jpeg;base64,', '', $logo_url);
-            $filename =  uniqid() . '.jpeg';
-        } elseif ($file_mine == 'image/jpg') {
-            $img = str_replace('data:image/jpg;base64,', '', $logo_url);
-            $filename =  uniqid() . '.jpg';
-        } else {
-            $img = str_replace('data:image/png;base64,', '', $logo_url);
-            $filename =  uniqid() . '.png';
-        }
-
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $file = "assets/upload/" . $filename;
-        $success = file_put_contents($file, $data);
-        $logo_url = '<img src="' . $file . '" height="80">';
-    } else {
-        $logo_url = '<img src="assets/images/elsevier.png" height="80">';
-    }
-    // $logo_url = imageinterlace($logo_url, false);
-
     // to
     $to_name = (!empty($_POST['to_name'])) ? $_POST['to_name'] : '';
     $to_address1 = (!empty($_POST['to_address1'])) ? $_POST['to_address1'] : '';
@@ -173,43 +136,90 @@ if (isset($_POST) && !empty($_POST)) {
     require('assets/libs/tcpdf/tcpdf.php');
 
     // Extend the TCPDF class to create custom Header and Footer
-    // class MYPDF extends TCPDF
-    // {
+    class MYPDF extends TCPDF
+    {
 
-    //     // Page footer
-    //     public function Footer()
-    //     {
+        // Page footer
+        public function Footer()
+        {
+            // heading
+            $invoice_heading = (!empty($_POST['invoice_heading'])) ? $_POST['invoice_heading'] : '';
+            // $sub_title = (!empty($_POST['sub_title'])) ? $_POST['sub_title'] : '';
+            // Logo
+            $logo_url = (!empty($_POST['logo_url'])) ? $_POST['logo_url'] : '';
+            if (!empty($logo_url)) {
+                $files = glob('assets/upload/{,.}*', GLOB_BRACE);
+                foreach ($files as $file) { // iterate files
+                    if (is_file($file)) {
+                        unlink($file); // delete file
+                    }
+                }
+                $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension   
+                $file_mine = finfo_file($finfo, $logo_url);
+                finfo_close($finfo);
+                if (isset($file_mine) && !empty($file_mine) && $file_mine == 'image/jpeg') {
 
-    //         $company_name = (!empty($_POST['company_name'])) ? $_POST['company_name'] : '';
-    //         $company_sub_heading = (!empty($_POST['company_sub_heading'])) ? $_POST['company_sub_heading'] : '';
-    //         $company_address1 = (!empty($_POST['company_address1'])) ? $_POST['company_address1'] : '';
-    //         // $company_address2 = (!empty($_POST['company_address2'])) ? $_POST['company_address2'] : '';
-    //         $company_number = (!empty($_POST['company_number'])) ? $_POST['company_number'] : '';
-    //         $company_withheldtex = (!empty($_POST['company_withheldtex'])) ? $_POST['company_withheldtex'] : '';
-    //         $company_business_number = (!empty($_POST['company_business_number'])) ? $_POST['company_business_number'] : '';
-    //         $document_type = (!empty($_POST['document_type'])) ? $_POST['document_type'] : '';
+                    $img = str_replace('data:image/jpeg;base64,', '', $logo_url);
+                    $filename =  uniqid() . '.jpeg';
+                } elseif ($file_mine == 'image/jpg') {
+                    $img = str_replace('data:image/jpg;base64,', '', $logo_url);
+                    $filename =  uniqid() . '.jpg';
+                } else {
+                    $img = str_replace('data:image/png;base64,', '', $logo_url);
+                    $filename =  uniqid() . '.png';
+                }
 
-    //         // Position at 15 mm from bottom
-    //         $this->SetY(-40);
-    //         // Set font
-    //         $this->SetFont('helvetica', '', 8);
-    //         // Page number
+                $img = str_replace(' ', '+', $img);
+                $data = base64_decode($img);
+                $file = "assets/upload/" . $filename;
+                $success = file_put_contents($file, $data);
+                $logo_url = '<img src="' . $file . '" height="80">';
+            } else {
+                $logo_url = '<img src="assets/images/elsevier.png" height="80">';
+            }
+            // $logo_url = imageinterlace($logo_url, false);
 
-    //         $this->Cell(0, 56, 'Page ' . $this->getAliasNumPage() . ' of ' . $this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
-    //         $footer_content = '';
-    //         $y = $this->getY();
-    //         $this->SetFillColor(255, 255, 255);
-    //         $this->writeHTMLCell(150, '', '', $y, $footer_content, 0, 0, 1, true, 'J', false);
-    //         // $this->writeHTML($footer_content, true, false, true, false, ""); 
-    //     }
-    // }
+
+            // Position at 15 mm from bottom
+            $this->SetY(3);
+            // Set font
+            $this->SetFont('helvetica', '', 8);
+            // Page number
+            // $this->Cell(0, 56, 'Page ' . $this->getAliasNumPage() . ' of ' . $this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
+            $footer_content = '
+            <table cellpadding="0" border="0" cellspacing="0" style="width: 100%;margin: 0 auto;">
+            <tbody>
+                <tr>
+                    <td width="100%">
+                        <table width="100%" border="0" cellpadding="10">
+                            <tr>
+                                <td width="20%"></td>
+                                <td width="60%" align="center">
+                                    <h1 style="font-size: 20rem;">' . $invoice_heading . '</h1>
+                                </td>
+                                <td align="right" width="20%">
+                                    ' . $logo_url . '
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+            ';
+            $y = $this->getY();
+            $this->SetFillColor(255, 255, 255);
+            $this->writeHTMLCell(287, '', '', $y, $footer_content, 0, 0, 1, true, 'J', false);
+            // $this->writeHTML($footer_content, true, false, true, false, ""); 
+        }
+    }
     // create new PDF document
-    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
     $pdf->setPrintHeader(false);
     $pdf->setHeaderTemplateAutoreset(true);
     // set margins
-    $pdf->SetMargins(5, 5, 5);
+    $pdf->SetMargins(5, 32.2, 5);
     // set auto page breaks
     $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
     // set image scale factor
@@ -223,37 +233,22 @@ if (isset($_POST) && !empty($_POST)) {
 
 
     // set some text to print
-    $content = '    <table cellpadding="0" border="0" cellspacing="0" style="width: 100%;margin: 0 auto;">
-    <tbody>
-        <tr>
-            <td width="100%">
-                <table width="100%" border="0" cellpadding="10">
-                    <tr>
-                        <td width="20%"></td>
-                        <td width="60%" align="center">
-                            <h2>' . $invoice_heading . '</h2>
-                        </td>
-                        <td align="right" width="20%">
-                        ' . $logo_url . '
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+    $content = '
+        <table cellpadding="0" border="0" cellspacing="0" style="width: 100%;margin: 0 auto;">
+        <tbody>
         <tr>
             <td width="100%">
                 <table width="100%" border="1">
                     <tr style="background-color: #f1e8e9 ;">
-                        <td width="50%">Bill To: <br>
-                        ' . $to_name . '  <br>
-                        ' . $to_address1  . '  <br>
-                        ' . $to_address2 . '  <br>
+                        <td width="50%"> <br><br> &nbsp; Bill To: <br>
+                            &nbsp; ' . $to_name . ' <br>
+                            &nbsp; ' . $to_address1 . ' <br>
+                            &nbsp; ' . $to_address2 . ' <br>
                         </td>
-                        <td width="50%">
-                        From: <br>
-                        ' . $from_name . '  <br>
-                        ' . $from_address1  . '  <br>
-                        ' . $from_address2 . '  <br>
+                        <td width="50%"> <br><br> &nbsp; From: <br>
+                            &nbsp;' . $from_name . ' <br>
+                            &nbsp;' . $from_address1 . ' <br>
+                            &nbsp;' . $from_address2 . ' <br>
                         </td>
                     </tr>
                 </table>
@@ -262,16 +257,16 @@ if (isset($_POST) && !empty($_POST)) {
         <tr>
             <td width="100%">
                 <table border="1" cellspacing="0" cellpadding="10">
-                <tr style="background-color: #f1e8e9 ;">
-                <td colspan="6">Quotation Details: ' . $qtDetails . '</td>
-                <td>Fee Quote Date' . $qtDate . ' </td>
-                <td></td>
-            </tr>
-            <tr style="background-color: #f1e8e9 ;">
-                <td colspan="6">Quote Number ' . $qtNumber . '</td>
-                <td>Fee Quote Expiration Date ' . $qtExDate . '</td>
-                <td></td>
-            </tr>
+                    <tr style="background-color: #f1e8e9 ;">
+                        <td colspan="6">Quotation Details:&nbsp; ' . $qtDetails . '</td>
+                        <td>Fee Quote Date:&nbsp;' . $qtDate . ' </td>
+                        <td></td>
+                    </tr>
+                    <tr style="background-color: #f1e8e9 ;">
+                        <td colspan="6">Quote Number:&nbsp;' . $qtNumber . '</td>
+                        <td>Fee Quote Expiration Date:&nbsp;' . $qtExDate . '</td>
+                        <td></td>
+                    </tr>
                     <tr align="center" style="background-color: #f1e8e9 ;">
                         <td>Item</td>
                         <td>Product</td>
@@ -284,115 +279,136 @@ if (isset($_POST) && !empty($_POST)) {
                         <td>totle Product fee</td>
                     </tr>
                     <tbody>
-                    ' . $items . '
+                        ' . $items . '
                     </tbody>
                     <tr style="background-color:  #f1e8e9 ;">
                         <td colspan="8">Product or Service Terms:</td>
                     </tr>
                     <tr>
-                        <td colspan="8" style="font-weight: 900;">The Service Start Date for the above service provided by ASCENT FINTECH shall be the date of receipt of the above Total Fees. <br><br>
-                            The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the signing of the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line Item 5 and 6 is Optional. <br><br>
-                            Technical Support shall commence on the same date of service subscription via supported channel including e-mail and telecommunication on Business Day (Monday to Friday), from 10am-6pm <br><br>
+                        <td colspan="8" style="font-weight: 900;">The Service Start Date for the above service
+                            provided by ASCENT FINTECH shall be the date of receipt of the above Total Fees.
+                            <br><br>
+                            The Line Item 1 Subscription, Line Item 2, 3 and 4 shall commence upon the signing of
+                            the Fee Quotation on a date both customer and ASCENT FINTECH agreed. Line Item 5 and 6
+                            is Optional. <br><br>
+                            Technical Support shall commence on the same date of service subscription via supported
+                            channel including e-mail and telecommunication on Business Day (Monday to Friday), from
+                            10am-6pm <br><br>
                             (Singapore Time Zone)</td>
                     </tr>
                     <tr style="background-color:  #f1e8e9 ;">
                         <td colspan="8">Terms An Conditions:</td>
                     </tr>
                     <tr>
-                    <td colspan="8">1. By signing this Legal Fee Quotation ("<span style="text-decoration: underline;">Schedule</span>") or issuing a purchase order referencing this Schedule</td>
-                </tr>
-                <tr>
-                    <td colspan="8">2. Fees are exclusive of any applicable sales, goods and services, GST or withholding tax (if any), and will be invoiced starting on the above Service Start Date. Payment can be remitted to ASCENT FINTECH in US$ to a bank account specified by ASCENT FINTECH</td>
-                </tr>
-                <tr>
-                    <td colspan="8">3. Once accepted, this Schedule shall be a binding commitment to purchase the above service beginning on the above subscription start date. Acceptance of this Schedule is expressly limited to the terms of ASCENT FINTECH written offer. Once accepted, this Schedule and the terms and conditions referenced herein will be the complete and exclusive statement of the Agreement. Any modifications proposed by Customer are expressly rejected by ASCENT FINTECH and shall not become part of the Agreement in the absence of ASCENT FINTECH written acceptance.</td>
-                </tr>
-                <tr>
-                    <td colspan="8">4. All fees are stated in USD and exclude prevailing rate of goods & services taxes. The Licensee acknowledges that upon signing this order form, the licensee has read, understood, and accepted the terms and conditions set out and they are hereby incorporated by reference here.</td>
-                </tr>
+                        <td colspan="8">1. By signing this Legal Fee Quotation ("<span
+                                style="text-decoration: underline;">Schedule</span>") or issuing a purchase order
+                            referencing this Schedule</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">2. Fees are exclusive of any applicable sales, goods and services, GST or
+                            withholding tax (if any), and will be invoiced starting on the above Service Start Date.
+                            Payment can be remitted to ASCENT FINTECH in US$ to a bank account specified by ASCENT
+                            FINTECH</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">3. Once accepted, this Schedule shall be a binding commitment to purchase
+                            the above service beginning on the above subscription start date. Acceptance of this
+                            Schedule is expressly limited to the terms of ASCENT FINTECH written offer. Once
+                            accepted, this Schedule and the terms and conditions referenced herein will be the
+                            complete and exclusive statement of the Agreement. Any modifications proposed by
+                            Customer are expressly rejected by ASCENT FINTECH and shall not become part of the
+                            Agreement in the absence of ASCENT FINTECH written acceptance.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">4. All fees are stated in USD and exclude prevailing rate of goods &
+                            services taxes. The Licensee acknowledges that upon signing this order form, the
+                            licensee has read, understood, and accepted the terms and conditions set out and they
+                            are hereby incorporated by reference here.</td>
+                    </tr>
                     <tfoot>
-                    <table cellpadding="0" border="0" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <td width="40%">
-                                <h4>The Above Legal Fee Quotation Is DulyAccepted By The Below Parties:</h4>
-                            </td>
-                            <td width="20%"></td>
-                            <td width="40%">
-                                <h4>ASCENT GLOBAL FINTECH SOLUTIONS PTE. LTD.
-                                    “ASCENT FINTECH”</h4>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td width="30%" height="50px">
-                                <h4>Signature: </h4>
-                            </td>
-                            <td width="30%"></td>
-                            <td width="20%">
-                                <h4>Signature:</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="border-bottom: 1px solid black;">' . $lcompany_Signature . '</td>
-                            <td width="30%"></td>
-                            <td width="30%">
-                            ' . $rcompany_Signature . '
-                                <!-- <h4>On Behalf of “ASCENT FINTECH”:</h4> -->
-                            </td>
-                        </tr>
-                        <tr>
-                        <td width="30%"></td>
-                        <td width="30%"></td>
-                        <td width="20%" style="border-bottom: 1px solid black;"></td>
-                    </tr>
-                    <tr>
-                        <td width="30%" height="50px">
-                            <h4>Name:</h4>
-                        </td>
-                        <td width="30%"></td>
-                        <td width="20%">
-                            <h4>Name:</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="30%" style="border-bottom: 1px solid black;">' . $lcompany_Signature . '</td>
-                        <td width="30%"></td>
-                        <td width="20%" style="border-bottom: 1px solid black;">' . $rcompany_Signature . '</td>
-                    </tr>
-                    <tr>
-                        <td width="30%" height="50px">
-                            <h4>Title</h4>
-                        </td>
-                        <td width="30%"></td>
-                        <td width="20%">
-                            <h4>Date</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="30%" style="border-bottom: 1px solid black;">' . $lcompany_Title . '</td>
-                        <td width="30%"></td>
-                        <td width="20%" style="border-bottom: 1px solid black;">' . $rcompany_Date . '</td>
-                    </tr>
-                    <tr>
-                        <td width="30%" height="50px">
-                            <h4>Date</h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="30%" height="50px">
-                        ' . $lcompany_Date . '
-                        </td>
-                    </tr>
-                    </tfoot>
-                    </table>
+                        <table cellpadding="0" border="0" cellspacing="0" style="border: 1px solid black">
+                            <thead>
+                                <tr>
+                                    <td width="40%">
+                                        <h4>The Above Legal Fee Quotation Is Duly Accepted By The Below Parties:</h4>
+                                    </td>
+                                    <td width="20%"></td>
+                                    <td width="40%">
+                                        <h4>ASCENT GLOBAL FINTECH SOLUTIONS PTE. LTD. “ASCENT FINTECH”</h4>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <td width="30%" height="50px">
+                                        <h4> Signature: </h4>
+                                    </td>
+                                    <td width="30%"></td>
+                                    <td width="20%">
+                                        <h4> Signature:</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                <td width="30%"></td>
+                                    <td width="30%"></td>
+                                    <td width="30%">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-bottom: 1px solid black;">&nbsp;' . $lcompany_Signature . '</td>
+                                    <td width="30%"></td>
+                                    <td width="20%" style="border-bottom: 1px solid black;">   ' . $rcompany_Signature . '</td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" height="50px">
+                                        <h4> Name:</h4>
+                                    </td>
+                                    <td width="30%"></td>
+                                    <td width="20%">
+                                        <h4> Name:</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="border-bottom: 1px solid black;">&nbsp;' . $lcompany_Name
+        . '</td>
+                                    <td width="30%"></td>
+                                    <td width="20%" style="border-bottom: 1px solid black;">&nbsp;' . $rcompany_Name
+        . '</td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" height="50px">
+                                        <h4> Title</h4>
+                                    </td>
+                                    <td width="30%"></td>
+                                    <td width="20%">
+                                        <h4> Date</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="border-bottom: 1px solid black;">&nbsp;' . $lcompany_Title . '
+                                    </td>
+                                    <td width="30%"></td>
+                                    <td width="20%" style="border-bottom: 1px solid black;">&nbsp;' . $rcompany_Date . '
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" height="50px">
+                                        <h4>Date</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%" style="border-bottom: 1px solid black;">&nbsp;
+                                        ' . $lcompany_Date . '
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </tfoot>
                 </table>
             </td>
         </tr>
     </tbody>
-</table>';
+</table>
+    ';
 
     // echo "<pre>";
     // print_r($_POST);

@@ -1,5 +1,14 @@
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#uploadlogo').attr('src', e.target.result);
+            $('#logo_url').val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 $(document).ready(function () {
-
     /*
     * Service table append
     */
@@ -22,19 +31,19 @@ $(document).ready(function () {
         <div class="input-group"><input type="text" id="item_product_code_${listitems_c}"   class="form-control item_product_code"  required="" name="item_product_code[]" step="0.01"></div>
     </td>
     <td class="prd_data">
-        <div class="input-group"><input type="text" id="item_quantity_${listitems_c}"   class="form-control item_quantity"  required="" name="item_quantity[]" step="0.01"></div>
+        <div class="input-group"><input type="number" id="item_quantity_${listitems_c}"   class="form-control item_quantity"  required="" name="item_quantity[]" step="0.01"></div>
     </td>
     <td class="prd_data">
-        <div class="input-group"><input type="text" id="item_subscription_fee_${listitems_c}"   class="form-control item_subscription_fee"  required="" name="item_subscription_fee[]" step="0.01"></div>
+        <div class="input-group"><input type="number" id="item_subscription_fee_${listitems_c}"   class="form-control item_subscription_fee"  required="" name="item_subscription_fee[]" step="0.01"></div>
     </td>
     <td class="prd_data">
-        <div class="input-group"><input type="text" id="item_product_fee_${listitems_c}"   class="form-control item_product_fee"  required="" name="item_product_fee[]" step="0.01"></div>
+        <div class="input-group"><input type="number" id="item_product_fee_${listitems_c}"   class="form-control item_product_fee"  required="" name="item_product_fee[]" step="0.01"></div>
     </td>
     <td class="prd_data">
-        <div class="input-group"><input type="text" id="item_price_${listitems_c}"   class="form-control item_price"  required="" name="item_price[]" step="0.01"></div>
+        <div class="input-group"><input type="number" id="item_price_${listitems_c}"   class="form-control item_price"  required="" name="item_price[]" step="0.01"></div>
     </td>
     <td class="prd_data">
-        <div class="input-group"><input type="text" id="item_total_${listitems_c}"   class="form-control item_total rounded" required="" name="item_total[]" step="0.01"><div class="remove items_r p-2"><i class="fa fa-trash text-danger"></i></div></div>
+        <div class="input-group"><input type="number" id="item_total_${listitems_c}"   class="form-control item_total rounded" required="" name="item_total[]" step="0.01"><div class="remove items_r p-2"><i class="fa fa-trash text-danger"></i></div></div>
     </td>
     </tr>`;
 
@@ -108,18 +117,6 @@ jQuery(document).on('click', '.service_table .items_r', function () {
 //         jQuery('.method_table .items_r').show();
 //     }
 // });
-
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#uploadlogo').attr('src', e.target.result);
-            $('#logo_url').val(e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 // function calculate(id) {
 
